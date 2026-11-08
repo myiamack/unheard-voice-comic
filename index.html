@@ -137,6 +137,20 @@ img{display:block;max-width:100%}
 .topnav .navbtn{font-size:.75rem;padding:6px 12px}
 @media print{.topnav,.endnav{display:none}}
 
+/* Hover effects: lift + pink glow, like the portfolio project cards */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .panel,.card,.textpanel,.diagram,.lineup figure{transition:transform .2s,box-shadow .2s,border-color .2s}
+  .panel img,.card img{transition:transform .35s}
+  .card{overflow:hidden}
+  .panel:hover,.card:hover,.textpanel:hover,.diagram:hover{
+    transform:translateY(-4px);border-color:var(--rose);
+    box-shadow:6px 6px 0 var(--rose),0 0 20px rgba(255,143,200,.45)}
+  .panel:hover img,.card:hover img{transform:scale(1.03)}
+  .lineup figure:hover{transform:translateY(-3px) rotate(-1deg);border-color:var(--rose);box-shadow:0 0 14px rgba(255,143,200,.55)}
+  .chips li{transition:background .15s}
+  .card:hover .chips li{background:var(--caption);color:var(--caption-ink)}
+}
+
 /* Versus */
 .vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center}
 .vs .mid{font-family:var(--f-display);font-size:1.5rem;color:var(--rose)}
