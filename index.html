@@ -125,6 +125,18 @@ img{display:block;max-width:100%}
 .support li{display:flex;align-items:center;gap:12px}
 .support .pair{display:flex;flex:none}
 .support .pair .av+.av{margin-left:-10px}
+
+/* Navigation links */
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.topnav{display:flex;justify-content:flex-start}
+.endnav{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;padding-top:8px}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:.85rem;letter-spacing:.06em;text-decoration:none;
+  color:var(--ink);background:var(--bubble);border:3px solid var(--line);box-shadow:4px 4px 0 var(--line);padding:8px 16px;transition:transform .15s,box-shadow .15s,background .15s}
+.navbtn:hover,.navbtn:focus-visible{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--rose);background:var(--caption);color:var(--caption-ink)}
+.navbtn:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+.topnav .navbtn{font-size:.75rem;padding:6px 12px}
+@media print{.topnav,.endnav{display:none}}
+
 /* Versus */
 .vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center}
 .vs .mid{font-family:var(--f-display);font-size:1.5rem;color:var(--rose)}
@@ -192,7 +204,8 @@ svg .ring{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:4 7}
 <style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
 </head>
 <body>
-<main class="strip">
+  <main class="strip" id="top">
+    <nav class="topnav" aria-label="Portfolio"><a class="navbtn" href="https://myiamack.github.io/Portfolio/#projects">&larr; Back to Myia's portfolio</a></nav>
 
 <!-- COVER -->
 <header class="cover">
@@ -656,7 +669,7 @@ svg .ring{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:4 7}
   </ul>
   <p>Story, soldiers, and strategy written by Myia for the i.c.stars Buffalo Soldiers assignment.</p>
 </section>
-
+<nav class="endnav" aria-label="Page navigation"><a class="navbtn" href="#top">&uarr; Back to top</a><a class="navbtn" href="https://myiamack.github.io/Portfolio/#projects">&larr; Back to portfolio</a></nav>
 </main>
 </body>
 </html>
