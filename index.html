@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A scrollable digital comic: eight Steven Universe-inspired soldiers fight the war of being interrupted in staff meetings. Buffalo Soldiers assignment by Myia, i.c.stars.">
+<meta property="og:title" content="The War of the Unheard Voice">
+<meta property="og:description" content="A scrollable digital comic: eight Steven Universe-inspired soldiers fight the war of being interrupted in staff meetings. Buffalo Soldiers assignment by Myia, i.c.stars.">
+<meta property="og:image" content="img/opal-victory.jpg">
+<title>The War of the Unheard Voice</title>
+<style>
+@font-face{font-family:"Bowlby One SC";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/bowlby-one-sc-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Patrick Hand";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/patrick-hand-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/nunito-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/nunito-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Nunito";font-style:normal;font-weight:800;font-display:swap;src:url("fonts/nunito-latin-800-normal.woff2") format("woff2")}
+@media print{body{background-image:none}.cover,.card,.panel,.textpanel,.caption,.diagram,.meeting,.mission,.armor div,.credits,.phase,.chapter{break-inside:avoid}.chapter{break-after:avoid}.strip{max-width:none}}
+html{-webkit-text-size-adjust:100%}
+
+/* Layout: a vertical "webtoon" comic — one 760px strip of ink-bordered panels on halftone paper, chapter splash bands between them. */
+:root{
+  --paper:#fbf8ff; --paper-2:#efe7fb; --ink:#1c1530; --ink-soft:#54486e; --line:#1c1530;
+  --bubble:#ffffff; --caption:#ffe27a; --caption-ink:#2a2105; --dot:#d9cdee;
+  --rose:#e2457f; --on-gem:#1c1530;
+  --steven:#f48fb1; --amethyst:#b48ae6; --pearl:#7fdad2; --connie:#f2a65a;
+  --garnet:#e0526b; --bismuth:#8fb3ff; --peridot:#9fe07a; --sapphire:#5ea8ff;
+  --tension:#d6304a;
+  --f-display:"Bowlby One SC","Arial Black",Impact,sans-serif;
+  --f-letter:"Patrick Hand","Comic Sans MS","Segoe Print",cursive;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#15101f; --paper-2:#211a31; --ink:#f3eefc; --ink-soft:#c5badb; --line:#8a76b8;
+  --bubble:#2a2240; --dot:#2c2340; --rose:#ff6f9f; --tension:#ff6b80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#15101f; --paper-2:#211a31; --ink:#f3eefc; --ink-soft:#c5badb; --line:#8a76b8;
+  --bubble:#2a2240; --dot:#2c2340; --rose:#ff6f9f; --tension:#ff6b80; color-scheme:dark}
+
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  background-image:radial-gradient(var(--dot) 1.2px,transparent 1.3px);background-size:14px 14px}
+.strip{max-width:760px;margin:0 auto;padding-block:24px 64px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0;letter-spacing:.01em;line-height:1.05}
+p{margin:0}
+img{display:block;max-width:100%}
+
+/* Panels */
+.panel{background:var(--bubble);border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);position:relative;overflow:hidden}
+.panel img{width:100%;height:auto;border-bottom:3px solid var(--line)}
+.panel .narr{padding:12px 16px 16px;font-family:var(--f-letter);font-size:1.2rem;line-height:1.35}
+.tag{position:absolute;top:10px;left:10px;background:var(--caption);color:var(--caption-ink);border:2px solid #1c1530;
+  font-family:var(--f-display);font-size:.72rem;letter-spacing:.08em;padding:3px 8px;z-index:1}
+.caption{background:var(--caption);color:var(--caption-ink);border:3px solid #1c1530;padding:12px 16px;
+  font-family:var(--f-letter);font-size:1.25rem;line-height:1.35;box-shadow:4px 4px 0 var(--line)}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+@media (max-width:620px){.row{grid-template-columns:1fr}}
+
+/* Cover */
+.cover{border:4px solid var(--line);box-shadow:8px 8px 0 var(--line);background:var(--paper-2);padding:24px 20px 20px;display:flex;flex-direction:column;gap:18px}
+.issue{display:flex;justify-content:space-between;font-family:var(--f-display);font-size:.75rem;letter-spacing:.1em;color:var(--ink-soft)}
+.cover h1{font-size:clamp(2.2rem,8vw,4rem);color:var(--ink)}
+.cover h1 span{color:var(--rose)}
+.cover .sub{font-family:var(--f-letter);font-size:1.35rem;color:var(--ink-soft)}
+.lineup{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.lineup figure{margin:0;border:3px solid var(--line);position:relative;background:var(--bubble)}
+.lineup img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.lineup figcaption{position:absolute;left:0;right:0;bottom:0;font-family:var(--f-display);font-size:.62rem;letter-spacing:.06em;
+  color:var(--on-gem);padding:2px 4px;text-align:center}
+@media (max-width:480px){.lineup{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.lineup figcaption{font-size:.5rem}}
+
+/* Chapter splash */
+.chapter{display:flex;flex-direction:column;gap:6px;padding-top:18px}
+.chapter .num{font-family:var(--f-display);font-size:.8rem;letter-spacing:.14em;color:var(--rose)}
+.chapter h2{font-size:clamp(1.7rem,5.5vw,2.6rem)}
+.chapter p{color:var(--ink-soft);max-width:60ch}
+
+/* Soldier cards */
+.squad-title{font-family:var(--f-display);font-size:1rem;letter-spacing:.08em;display:flex;align-items:center;gap:10px}
+.squad-title::after{content:"";flex:1;height:3px;background:var(--line)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:620px){.cards{grid-template-columns:1fr}}
+.card{background:var(--bubble);border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);display:flex;flex-direction:column;min-width:0}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover;border-bottom:3px solid var(--line)}
+.card .head{padding:10px 14px;border-bottom:3px solid var(--line);color:var(--on-gem);display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card .head h3{font-size:1.35rem}
+.card .head span{font-family:var(--f-display);font-size:.72rem;letter-spacing:.08em}
+.card .body{padding:12px 14px 16px;display:flex;flex-direction:column;gap:10px}
+.card .voice{font-family:var(--f-letter);font-size:1.15rem;line-height:1.35}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:0;list-style:none}
+.chips li{border:2px solid var(--line);padding:1px 9px;font-size:.8rem;font-weight:800;border-radius:999px}
+.sw{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.92rem}
+.sw dt{font-family:var(--f-display);font-size:.7rem;letter-spacing:.08em;padding-top:3px}
+.sw dd{margin:0}
+.sw .s{color:var(--ink)} .sw .w{color:var(--ink)}
+.g-steven{background:var(--steven)} .g-amethyst{background:var(--amethyst)} .g-pearl{background:var(--pearl)} .g-connie{background:var(--connie)}
+.g-garnet{background:var(--garnet)} .g-bismuth{background:var(--bismuth)} .g-peridot{background:var(--peridot)} .g-sapphire{background:var(--sapphire)}
+
+/* Speech bubbles */
+.meeting{background:var(--paper-2);border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);padding:24px 18px 28px;display:flex;flex-direction:column;gap:18px}
+.bubble{position:relative;background:var(--bubble);border:3px solid var(--line);border-radius:22px;padding:12px 18px;font-family:var(--f-letter);font-size:1.3rem;max-width:80%}
+.bubble::after{content:"";position:absolute;bottom:-16px;left:34px;border:8px solid transparent;border-top:10px solid var(--line)}
+.bubble.me{align-self:flex-start}
+.bubble.them{background:var(--caption);color:var(--caption-ink);align-self:flex-end;font-size:1.7rem;font-family:var(--f-display);letter-spacing:.02em;transform:rotate(-1.5deg);margin-top:-30px}
+.bubble.them::after{left:auto;right:34px}
+.bubble .cut{color:var(--ink-soft)}
+.mission{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;border:3px dashed var(--line);padding:14px 16px;background:var(--bubble)}
+.mission b{font-family:var(--f-display);font-weight:400;font-size:.8rem;letter-spacing:.08em;padding-top:3px}
+
+/* Phase headers */
+.phase{display:flex;align-items:center;gap:12px}
+.phase .n{font-family:var(--f-display);font-size:1.6rem;width:52px;height:52px;display:grid;place-items:center;border:3px solid var(--line);background:var(--caption);color:var(--caption-ink);flex:none}
+.phase h3{font-size:1.4rem}
+.phase p{color:var(--ink-soft);font-size:.92rem}
+.who{font-family:var(--f-display);font-weight:400;font-size:.8rem;letter-spacing:.06em;padding:1px 7px;color:var(--on-gem);border:2px solid #1c1530;white-space:nowrap}
+.textpanel{background:var(--bubble);border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);padding:16px;display:flex;flex-direction:column;gap:10px}
+.textpanel .say{font-family:var(--f-letter);font-size:1.25rem;line-height:1.35}
+
+.textpanel p:has(.spk){display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.eq{white-space:nowrap;font-family:var(--f-display);font-size:.85rem}
+.spk{display:inline-flex;align-items:center;gap:8px;vertical-align:middle}
+.av{width:44px;height:44px;border-radius:50%;border:3px solid var(--line);background:var(--bubble);flex:none;object-fit:cover}
+.av.sm{width:34px;height:34px}
+.support{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.support li{display:flex;align-items:center;gap:12px}
+.support .pair{display:flex;flex:none}
+.support .pair .av+.av{margin-left:-10px}
+/* Versus */
+.vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center}
+.vs .mid{font-family:var(--f-display);font-size:1.5rem;color:var(--rose)}
+@media (max-width:620px){.vs{grid-template-columns:1fr}.vs .mid{text-align:center}}
+
+/* Diagrams */
+.diagram{background:var(--bubble);border:3px solid var(--line);box-shadow:6px 6px 0 var(--line);padding:14px}
+.scroll{overflow-x:auto}
+.scroll svg{min-width:600px;width:100%;height:auto;display:block}
+svg text{font-family:var(--f-body);fill:var(--ink)}
+svg .nm{font-weight:800;font-size:14px}
+svg .tr{font-size:11.5px;fill:var(--ink-soft)}
+svg .lbl{font-size:12px;font-weight:800;paint-order:stroke;stroke:var(--bubble);stroke-width:5px;stroke-linejoin:round}
+svg .zone{font-family:var(--f-display);font-size:13px;letter-spacing:1.5px;fill:var(--ink-soft)}
+svg .node{stroke:var(--line);stroke-width:3}
+svg .edge{stroke:var(--line);stroke-width:3}
+svg .edge.t{stroke:var(--tension);stroke-dasharray:8 6}
+svg .lbl.t{fill:var(--tension)}
+svg .band{fill:var(--paper-2);stroke:var(--line);stroke-width:2}
+svg .bolt{fill:var(--caption);stroke:#1c1530;stroke-width:2}
+svg .boltt{font-family:var(--f-display);font-size:15px;fill:#2a2105}
+svg .ring{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:4 7}
+.f-steven{fill:var(--steven)} .f-amethyst{fill:var(--amethyst)} .f-pearl{fill:var(--pearl)} .f-connie{fill:var(--connie)}
+.f-garnet{fill:var(--garnet)} .f-bismuth{fill:var(--bismuth)} .f-peridot{fill:var(--peridot)} .f-sapphire{fill:var(--sapphire)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--ink-soft);padding-top:10px}
+.legend i{display:inline-block;width:26px;height:0;border-top:3px solid var(--line);vertical-align:middle;margin-right:6px}
+.legend i.t{border-top:3px dashed var(--tension)}
+
+/* Armor */
+.armor{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:620px){.armor{grid-template-columns:1fr}}
+.armor div{background:var(--bubble);border:3px solid var(--line);padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.armor h4{margin:0;font-family:var(--f-display);font-weight:400;font-size:1rem;display:flex;gap:8px;align-items:center}
+.armor .dot{width:14px;height:14px;border:2px solid #1c1530;border-radius:50%;flex:none}
+.armor p{font-size:.92rem}
+.armor .from{font-family:var(--f-letter);font-size:1.1rem;color:var(--ink-soft)}
+
+/* Credits */
+.credits{background:var(--paper-2);border:3px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:12px;font-size:.88rem}
+.credits h2{font-size:1.4rem}
+.credits ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;color:var(--ink-soft)}
+.credits b{color:var(--ink)}
+.end{font-family:var(--f-display);font-size:2rem;text-align:center;color:var(--rose);letter-spacing:.06em}
+@media (prefers-reduced-motion:no-preference){.bubble.them{animation:jolt .5s ease-out both}@keyframes jolt{0%{transform:rotate(-1.5deg) scale(.92)}60%{transform:rotate(-1.5deg) scale(1.04)}100%{transform:rotate(-1.5deg) scale(1)}}}
+
+.group{display:flex;flex-direction:column;gap:28px}
+/* PDF / print layout */
+@media print{
+  .strip{display:block;padding-block:0}
+  .strip>*+*{margin-top:22px}
+  .chapter,.phase,.squad-title{break-after:avoid;page-break-after:avoid}
+  .panel img{max-height:3.1in;width:100%;object-fit:contain;background:var(--bubble)}
+  .vs .panel img,.row .panel img{max-height:2.6in}
+  .card img{max-height:2.6in}
+  .victory-fig{max-width:5.6in!important}
+  .victory-fig img{max-height:8.4in}
+  .end{break-before:page;page-break-before:always;margin-top:0!important;padding-top:4px}
+  .credits{margin-top:18px!important}
+  .meeting+.caption,.caption+.vs,.caption+.row,.chapter+.caption{break-before:avoid;page-break-before:avoid}
+  .meeting{break-inside:avoid}
+  .group{display:block;break-inside:avoid;page-break-inside:avoid}
+  .group>*+*{margin-top:22px}
+}
+</style>
+<style>html{color-scheme:light}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
+</head>
+<body>
+<main class="strip">
+
+<!-- COVER -->
+<header class="cover">
+  <div class="issue"><span>BUFFALO SOLDIERS · ISSUE #1</span><span>BY MYIA</span></div>
+  <h1>The War of the <span>Unheard Voice</span></h1>
+  <p class="sub">Inside every person is an army. Mine has eight soldiers. This is how they fight for my voice.</p>
+  <div class="lineup">
+    <figure><img src="img/steven-shield.jpg" alt="Steven raising his pink shield" style="object-position:55% 35%"><figcaption class="g-steven">STEVEN</figcaption></figure>
+    <figure><img src="img/amethyst-grin.jpg" alt="Amethyst grinning" style="object-position:50% 30%"><figcaption class="g-amethyst">AMETHYST</figcaption></figure>
+    <figure><img src="img/pearl-dance.jpg" alt="Pearl in a graceful pose" style="object-position:50% 30%"><figcaption class="g-pearl">PEARL</figcaption></figure>
+    <figure><img src="img/connie-sword.jpg" alt="Connie in a sword stance" style="object-position:45% 40%"><figcaption class="g-connie">CONNIE</figcaption></figure>
+    <figure><img src="img/garnet-calm.jpg" alt="Garnet with hand on hip" style="object-position:50% 18%"><figcaption class="g-garnet">GARNET</figcaption></figure>
+    <figure><img src="img/bismuth-forge.jpg" alt="Bismuth in her forge" style="object-position:65% 40%"><figcaption class="g-bismuth">BISMUTH</figcaption></figure>
+    <figure><img src="img/peridot-couch.jpg" alt="Peridot studying her tablet" style="object-position:58% 45%"><figcaption class="g-peridot">PERIDOT</figcaption></figure>
+    <figure><img src="img/sapphire-beam.jpg" alt="Sapphire staying calm as a light beam passes" style="object-position:45% 50%"><figcaption class="g-sapphire">SAPPHIRE</figcaption></figure>
+  </div>
+</header>
+
+<!-- CH 1 -->
+<section class="chapter">
+  <span class="num">CHAPTER 1</span>
+  <h2>Meet the Army</h2>
+  <p>Four soldiers guard my heart. Four show up with me at work. Each one has a power, and each one has a crack in the armor.</p>
+</section>
+
+<div class="squad-title">THE PERSONAL SQUAD</div>
+<div class="cards">
+  <article class="card">
+    <img src="img/steven-shield.jpg" alt="Steven raising his pink shield in a defensive stance" style="object-position:55% 40%">
+    <div class="head g-steven"><h3>Steven</h3><span>COMPASSION</span></div>
+    <div class="body">
+      <p class="voice">Steven reads the room and feels what others feel. He defends the people who get overlooked and always looks for the peaceful way through.</p>
+      <ul class="chips"><li>Empathetic</li><li>Protective</li><li>Peacemaker</li><li>Loyal</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Sees every side and calms conflict before it grows.</dd><dt>WEAKNESS</dt><dd class="w">Puts everyone else first and hides his own needs.</dd></dl>
+    </div>
+  </article>
+  <article class="card">
+    <img src="img/amethyst-grin.jpg" alt="Amethyst with a huge grin and excited fists" style="object-position:50% 32%">
+    <div class="head g-amethyst"><h3>Amethyst</h3><span>AUTHENTICITY</span></div>
+    <div class="body">
+      <p class="voice">Amethyst refuses to pretend. She brings the jokes when things get heavy and reminds me I don't have to be perfect to be worthy.</p>
+      <ul class="chips"><li>Genuine</li><li>Funny</li><li>Resilient</li><li>Bold</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Keeps it real and lightens the room.</dd><dt>WEAKNESS</dt><dd class="w">When she feels judged, insecurity makes her act out or shrink.</dd></dl>
+    </div>
+  </article>
+  <article class="card">
+    <img src="img/pearl-dance.jpg" alt="Pearl striking a confident, graceful pose" style="object-position:50% 30%">
+    <div class="head g-pearl"><h3>Pearl</h3><span>PREPARATION</span></div>
+    <div class="body">
+      <p class="voice">Pearl plans, organizes, and remembers every detail. With her around, I'm never caught off guard.</p>
+      <ul class="chips"><li>Organized</li><li>Detail-oriented</li><li>Disciplined</li><li>Graceful</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Walks in with every point ready.</dd><dt>WEAKNESS</dt><dd class="w">Perfectionism. She waits for the perfect moment, and it never comes.</dd></dl>
+    </div>
+  </article>
+  <article class="card">
+    <img src="img/connie-sword.jpg" alt="Connie in a fighting stance with her sword raised" style="object-position:42% 40%">
+    <div class="head g-connie"><h3>Connie</h3><span>DETERMINATION</span></div>
+    <div class="body">
+      <p class="voice">Connie studies, trains, and shows up ready. When it matters, she has the courage to step in.</p>
+      <ul class="chips"><li>Studious</li><li>Courageous</li><li>Driven</li><li>Reliable</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Rehearses until she's confident, then follows through.</dd><dt>WEAKNESS</dt><dd class="w">Carries a lot of pressure to always be the best.</dd></dl>
+    </div>
+  </article>
+</div>
+
+<div class="squad-title">THE PROFESSIONAL SQUAD</div>
+<div class="cards">
+  <article class="card">
+    <img src="img/garnet-calm.jpg" alt="Garnet standing calmly with her hand on her hip" style="object-position:50% 16%">
+    <div class="head g-garnet"><h3>Garnet</h3><span>COMPOSURE</span></div>
+    <div class="body">
+      <p class="voice">Garnet stays steady when everything around her gets loud. She doesn't panic, and her calm makes people trust her.</p>
+      <ul class="chips"><li>Steady</li><li>Confident</li><li>Unshakable</li><li>Trusted</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Calm confidence under pressure.</dd><dt>WEAKNESS</dt><dd class="w">Guards her feelings so closely that people find her hard to read.</dd></dl>
+    </div>
+  </article>
+  <article class="card">
+    <img src="img/bismuth-forge.jpg" alt="Bismuth smiling in her forge, holding a glowing blade" style="object-position:62% 40%">
+    <div class="head g-bismuth"><h3>Bismuth</h3><span>ADVOCACY</span></div>
+    <div class="body">
+      <p class="voice">Bismuth speaks up when something isn't fair, for me and for others. She builds things that last and won't let anyone get pushed aside.</p>
+      <ul class="chips"><li>Outspoken</li><li>Fair</li><li>Builder</li><li>Brave</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Names the problem out loud.</dd><dt>WEAKNESS</dt><dd class="w">Her intensity can come on too strong and turn all-or-nothing.</dd></dl>
+    </div>
+  </article>
+  <article class="card">
+    <img src="img/peridot-couch.jpg" alt="Peridot lying on the couch studying her tablet" style="object-position:58% 45%">
+    <div class="head g-peridot"><h3>Peridot</h3><span>PROBLEM-SOLVING</span></div>
+    <div class="body">
+      <p class="voice">Peridot breaks a challenge into pieces and figures out how to fix it. She's honest, curious, and always learning.</p>
+      <ul class="chips"><li>Analytical</li><li>Curious</li><li>Honest</li><li>Growing</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Spots patterns and builds real fixes.</dd><dt>WEAKNESS</dt><dd class="w">Blunt, and her pride makes it hard to admit when she's wrong.</dd></dl>
+    </div>
+  </article>
+  <article class="card">
+    <img src="img/sapphire-beam.jpg" alt="Sapphire unmoved as a beam of light passes her face" style="object-position:45% 50%">
+    <div class="head g-sapphire"><h3>Sapphire</h3><span>STRATEGY</span></div>
+    <div class="body">
+      <p class="voice">Sapphire thinks several moves ahead and weighs every outcome before acting. She keeps my decisions grounded.</p>
+      <ul class="chips"><li>Foresighted</li><li>Level-headed</li><li>Patient</li><li>Logical</li></ul>
+      <dl class="sw"><dt>STRENGTH</dt><dd class="s">Sees the interruption coming before it happens.</dd><dt>WEAKNESS</dt><dd class="w">So focused on logic she can seem detached from feelings.</dd></dl>
+    </div>
+  </article>
+</div>
+
+<!-- CH 2 -->
+<div class="group">
+<section class="chapter">
+  <span class="num">CHAPTER 2</span>
+  <h2>The War Is Declared</h2>
+  <p>It happens in every full staff meeting.</p>
+</section>
+
+<div class="meeting" aria-label="A meeting scene where my idea gets cut off">
+  <div class="bubble me">"So I think we could try a new approach to <span class="cut">the onboarding—"</span></div>
+  <div class="bubble them">"ACTUALLY, WHAT IF WE—"</div>
+</div>
+<div class="caption">My voice gets lost. My ideas get talked over, or picked up later by someone else. I leave the room feeling unseen.</div>
+<div class="mission">
+  <b>THE WAR</b><span>I'm constantly interrupted when I try to share ideas in full staff meetings.</span>
+  <b>THE GOAL</b><span>Get my ideas fully heard, while keeping my professionalism and my relationships intact.</span>
+</div>
+</div>
+
+<!-- CH 3 -->
+<div class="group">
+<section class="chapter">
+  <span class="num">CHAPTER 3</span>
+  <h2>The Battle Plan</h2>
+  <p>The army moves in three phases: before the meeting, during the interruption, and after.</p>
+</section>
+
+<div class="phase"><div class="n">1</div><div><h3>Before the Meeting</h3><p>Preparation wins half the battle.</p></div></div>
+<div class="row">
+  <figure class="panel" style="margin:0">
+    <span class="tag">PHASE 1</span>
+    <img src="img/pearl-holo.jpg" alt="Pearl training with her hologram, Holo-Pearl">
+    <figcaption class="narr">Pearl builds a practice opponent so she's ready before the real fight. She organizes my key points so I'm clear and concise.</figcaption>
+  </figure>
+  <div class="textpanel">
+    <p><span class="spk"><img class="av" src="img/av-connie.png" alt=""><span class="who g-connie">CONNIE</span></span></p>
+    <p class="say">"Say it out loud three times. By the meeting, it'll feel like mine."</p>
+    <p><span class="spk"><img class="av" src="img/av-sapphire.png" alt=""><span class="who g-sapphire">SAPPHIRE</span></span></p>
+    <p class="say">"Same agenda item, same person, same moment. I know when the interruption is coming. Speak first on that item."</p>
+  </div>
+</div>
+</div>
+
+<div class="group">
+<div class="phase"><div class="n">2</div><div><h3>The Interruption</h3><p>The battlefield. Calm, clear, and kind.</p></div></div>
+<div class="row">
+  <figure class="panel" style="margin:0">
+    <span class="tag">GARNET TAKES COMMAND</span>
+    <img src="img/garnet-holdon.jpg" alt="Garnet calmly holding out one hand">
+    <figcaption class="narr">Garnet raises one hand, calm as ever. No visible frustration. No raised voice.</figcaption>
+  </figure>
+  <figure class="panel" style="margin:0">
+    <span class="tag">CONNIE STEPS UP</span>
+    <img src="img/connie-focus.jpg" alt="Connie looking straight ahead, focused">
+    <figcaption class="narr">Connie takes a breath, looks the problem in the eye, and doesn't back down.</figcaption>
+  </figure>
+</div>
+<div class="textpanel">
+  <p><span class="spk"><img class="av" src="img/av-bismuth.png" alt=""><span class="who g-bismuth">BISMUTH</span></span></p>
+  <p class="say">"I'd like to finish my thought, and then I'd love to hear yours."</p>
+</div>
+</div>
+<figure class="panel" style="margin:0">
+  <span class="tag">AMETHYST KEEPS IT REAL</span>
+  <img src="img/amethyst-whip.jpg" alt="Amethyst swinging her whip, focused">
+  <figcaption class="narr">Amethyst keeps it light and honest, so the moment never turns into a fight. A smile, a steady voice, and I keep going.</figcaption>
+</figure>
+
+<div class="group">
+<div class="phase"><div class="n">3</div><div><h3>After the Meeting</h3><p>Follow-through turns one win into a pattern.</p></div></div>
+<div class="row">
+  <div class="textpanel">
+    <p><span class="spk"><img class="av" src="img/av-steven.png" alt=""><span class="who g-steven">STEVEN</span></span></p>
+    <p class="say">One-on-one, assuming good intent: "I know you get excited about ideas. I do too. I'd love to finish my points next time."</p>
+  </div>
+  <figure class="panel" style="margin:0">
+    <span class="tag">PERIDOT FIXES THE SYSTEM</span>
+    <img src="img/peridot-tablet.jpg" alt="Peridot tapping her tablet">
+    <figcaption class="narr">Peridot drafts the fix: send ideas in writing before the meeting, and suggest a round-robin so everyone gets the floor.</figcaption>
+  </figure>
+</div>
+</div>
+
+<!-- CH 4 -->
+<div class="group">
+<section class="chapter">
+  <span class="num">CHAPTER 4</span>
+  <h2>Battle Formations</h2>
+  <p>When two soldiers fuse, they become something stronger than either one alone.</p>
+</section>
+
+<div class="caption"><b>STEVONNIE</b> = Steven + Connie. Compassion plus courage: I speak up without making anyone feel attacked.</div>
+<div class="vs">
+  <figure class="panel" style="margin:0">
+    <span class="tag">UNDER PRESSURE</span>
+    <img src="img/stevonnie-panic.jpg" alt="Stevonnie panicking with hands on head">
+    <figcaption class="narr">When the interruptions pile up, two hearts in one body can panic twice as hard.</figcaption>
+  </figure>
+  <div class="mid">VS</div>
+  <figure class="panel" style="margin:0">
+    <span class="tag">IN SYNC</span>
+    <img src="img/stevonnie-gem.jpg" alt="Stevonnie determined, protecting a purple gem">
+    <figcaption class="narr">In sync, kind and brave together, protecting a teammate.</figcaption>
+  </figure>
+</div>
+</div>
+
+<div class="group">
+<div class="caption"><b>GARNET</b> = Ruby + Sapphire. Passion plus strategy. My strategist is literally part of my composure.</div>
+<div class="row">
+  <figure class="panel" style="margin:0">
+    <span class="tag">THE FIRST FUSION</span>
+    <img src="img/garnet-answer.jpg" alt="Garnet the first time Ruby and Sapphire fused, looking unsure">
+    <figcaption class="narr">Even Garnet had to learn composure. It didn't come all at once.</figcaption>
+  </figure>
+  <figure class="panel" style="margin:0">
+    <span class="tag">THE PROMISE</span>
+    <img src="img/sapphire-wedding.jpg" alt="Sapphire smiling in a tuxedo at her wedding">
+    <figcaption class="narr">Composure isn't the absence of feeling. It's a promise strategy and passion made to each other.</figcaption>
+  </figure>
+</div>
+</div>
+
+<div class="row">
+  <figure class="panel" style="margin:0">
+    <span class="tag">OPAL</span>
+    <img src="img/opal.jpg" alt="Opal, the fusion of Pearl and Amethyst">
+    <figcaption class="narr"><b>Opal</b> = Pearl + Amethyst. Prepared, but still myself. My notes are ready, and so is my real voice.</figcaption>
+  </figure>
+  <div class="textpanel">
+    <p><span class="spk"><img class="av" src="img/av-garnet.png" alt=""><span class="who g-garnet">GARNET</span></span> + <span class="spk"><img class="av" src="img/av-bismuth.png" alt=""><span class="who g-bismuth">BISMUTH</span></span></p>
+    <p class="say">Calm and assertive. Bismuth brings the words, Garnet keeps them steady. I take back the floor without raising my voice.</p>
+    <p><span class="spk"><img class="av" src="img/av-pearl.png" alt=""><span class="who g-pearl">PEARL</span></span> + <span class="spk"><img class="av" src="img/av-sapphire.png" alt=""><span class="who g-sapphire">SAPPHIRE</span></span></p>
+    <p class="say">The War Room. Prep and strategy, done before I ever walk in.</p>
+  </div>
+</div>
+
+<div class="diagram">
+  <div class="scroll">
+  <svg viewBox="0 0 680 400" role="img" aria-label="Relationship map of the eight soldiers">
+    <line class="edge" x1="90" y1="100" x2="100" y2="320"/>
+    <line class="edge" x1="90" y1="100" x2="250" y2="50"/>
+    <line class="edge" x1="270" y1="160" x2="250" y2="50"/>
+    <line class="edge" x1="270" y1="160" x2="100" y2="320"/>
+    <line class="edge" x1="270" y1="160" x2="560" y2="60"/>
+    <line class="edge" x1="560" y1="60" x2="440" y2="170"/>
+    <line class="edge" x1="440" y1="170" x2="450" y2="330"/>
+    <line class="edge" x1="450" y1="330" x2="590" y2="300"/>
+    <line class="edge t" x1="90" y1="100" x2="450" y2="330"/>
+    <text class="lbl" x="95" y="215" text-anchor="middle">Stevonnie</text>
+    <text class="lbl" x="170" y="70" text-anchor="middle">Heart + humor</text>
+    <text class="lbl" x="262" y="108" text-anchor="middle">Opal</text>
+    <text class="lbl" x="185" y="246" text-anchor="middle">Teacher</text>
+    <text class="lbl" x="400" y="102" text-anchor="middle">War Room</text>
+    <text class="lbl" x="522" y="132" text-anchor="middle">Part of her</text>
+    <text class="lbl" x="446" y="254" text-anchor="middle">Calm + fire</text>
+    <text class="lbl" x="522" y="306" text-anchor="middle">Side by side</text>
+    <text class="lbl t" x="300" y="226" text-anchor="middle">Peace vs. speak up</text>
+    <circle class="node f-steven" cx="90" cy="100" r="26"/><text class="nm" x="58" y="105" text-anchor="end">Steven</text>
+    <circle class="node f-amethyst" cx="250" cy="50" r="26"/><text class="nm" x="305" y="55" text-anchor="start">Amethyst</text>
+    <circle class="node f-pearl" cx="270" cy="160" r="26"/><text class="nm" x="305" y="165" text-anchor="start">Pearl</text>
+    <circle class="node f-connie" cx="100" cy="320" r="26"/><text class="nm" x="100" y="364" text-anchor="middle">Connie</text>
+    <circle class="node f-sapphire" cx="560" cy="60" r="26"/><text class="nm" x="596" y="65" text-anchor="start">Sapphire</text>
+    <circle class="node f-garnet" cx="440" cy="170" r="26"/><text class="nm" x="476" y="175" text-anchor="start">Garnet</text>
+    <circle class="node f-bismuth" cx="450" cy="330" r="26"/><text class="nm" x="450" y="374" text-anchor="middle">Bismuth</text>
+    <circle class="node f-peridot" cx="590" cy="300" r="26"/><text class="nm" x="590" y="344" text-anchor="middle">Peridot</text>
+  </svg>
+  </div>
+  <div class="legend"><span><i></i>Support each other</span><span><i class="t"></i>Pull in different directions</span></div>
+</div>
+
+<!-- CH 5 -->
+<div class="group">
+<section class="chapter">
+  <span class="num">CHAPTER 5</span>
+  <h2>Support and Clash</h2>
+  <p>An army doesn't always agree. First, how my soldiers hold each other up. Then, the moments they work against each other.</p>
+</section>
+
+<div class="textpanel">
+  <p><b>WHEN THEY SUPPORT EACH OTHER</b></p>
+  <ul class="support">
+    <li><span class="pair"><img class="av sm" src="img/av-pearl.png" alt=""><img class="av sm" src="img/av-connie.png" alt=""></span><span class="say">Pearl trains Connie, so courage comes with a plan.</span></li>
+    <li><span class="pair"><img class="av sm" src="img/av-garnet.png" alt=""><img class="av sm" src="img/av-bismuth.png" alt=""></span><span class="say">Garnet lends Bismuth her calm, so the fire lands well.</span></li>
+    <li><span class="pair"><img class="av sm" src="img/av-sapphire.png" alt=""><img class="av sm" src="img/av-pearl.png" alt=""></span><span class="say">Sapphire feeds Pearl the strategy, so the prep is aimed at the right moment.</span></li>
+    <li><span class="pair"><img class="av sm" src="img/av-amethyst.png" alt=""><img class="av sm" src="img/av-pearl.png" alt=""></span><span class="say">Amethyst reminds Pearl she doesn't have to be perfect to speak.</span></li>
+    <li><span class="pair"><img class="av sm" src="img/av-steven.png" alt=""><img class="av sm" src="img/av-bismuth.png" alt=""></span><span class="say">Steven keeps Bismuth's words kind, so the relationship survives the battle.</span></li>
+  </ul>
+</div>
+</div>
+<div class="group">
+<div class="caption"><b>WHEN THEY DON'T:</b> Under pressure, my soldiers don't always agree. Some want to keep the peace, some want to fight back, and some freeze. Here's what happens when they pull against each other.</div>
+
+<div class="textpanel">
+  <p><span class="spk"><img class="av" src="img/av-steven.png" alt=""><span class="who g-steven">STEVEN</span></span></p>
+  <p class="say">"Just let it go. It's not worth the tension."</p>
+  <p><span class="spk"><img class="av" src="img/av-bismuth.png" alt=""><span class="who g-bismuth">BISMUTH</span></span></p>
+  <p class="say">"If we let it go, it happens again next week."</p>
+</div>
+</div>
+<div class="row">
+  <figure class="panel" style="margin:0">
+    <span class="tag">PEARL FREEZES</span>
+    <img src="img/pearl-anxious.jpg" alt="Pearl looking anxious with arms clutched">
+    <figcaption class="narr">Pearl waits for the perfect moment to speak. When it doesn't come, the worry sets in.</figcaption>
+  </figure>
+  <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+    <figure class="panel" style="margin:0">
+      <span class="tag">BISMUTH OVERHEATS</span>
+      <img src="img/bismuth-scowl.jpg" alt="Bismuth scowling, ready to fight, with Peridot beside her">
+      <figcaption class="narr">She sees something unfair and wants to swing. Not every moment calls for the hammer.</figcaption>
+    </figure>
+  </div>
+</div>
+<div class="row">
+  <figure class="panel" style="margin:0">
+    <span class="tag">PERIDOT DIGS IN</span>
+    <img src="img/peridot-early.jpg" alt="Early Peridot frustrated at her hologram screen">
+    <figcaption class="narr">Old Peridot: "If the system fails, it's not my fault." Stubborn pride blocks the fix.</figcaption>
+  </figure>
+  <div class="textpanel">
+    <p><span class="spk"><img class="av" src="img/av-amethyst.png" alt=""><span class="who g-amethyst">AMETHYST</span></span></p>
+    <p class="say">"Maybe my idea wasn't that good anyway."</p>
+    <p><span class="spk"><img class="av" src="img/av-sapphire.png" alt=""><span class="who g-sapphire">SAPPHIRE</span></span></p>
+    <p class="say">Overthinks every possible response, and the moment passes.</p>
+  </div>
+</div>
+
+<!-- CH 6 -->
+<div class="group">
+<section class="chapter">
+  <span class="num">CHAPTER 6</span>
+  <h2>Armor Up</h2>
+  <p>Some soldiers need more protection than others. Here's who needs armor and where they get it.</p>
+</section>
+
+<div class="row">
+<figure class="panel" style="margin:0">
+  <span class="tag">WHEN PEARL GETS HER ARMOR</span>
+  <img src="img/pearl-blush.jpg" alt="Pearl smiling and blushing with hands clasped">
+  <figcaption class="narr">When Pearl hears "you're ready," she finally believes it.</figcaption>
+</figure>
+<figure class="panel" style="margin:0">
+  <span class="tag">WHEN AMETHYST GETS HER ARMOR</span>
+  <img src="img/amethyst-pose.jpg" alt="Amethyst standing confidently with her whip">
+  <figcaption class="narr">When teammates back her ideas, Amethyst stands tall and ready.</figcaption>
+</figure>
+</div>
+</div>
+<div class="group">
+<div class="armor">
+  <div><h4><span class="dot g-steven"></span>Steven</h4><p>Needs armor of self-worth, so his own needs count too.</p><p class="from">From: my mentors and my i.c.stars cohort.</p></div>
+  <div><h4><span class="dot g-amethyst"></span>Amethyst</h4><p>Needs confidence when insecurity creeps in.</p><p class="from">From: teammates who affirm my contributions.</p></div>
+  <div><h4><span class="dot g-pearl"></span>Pearl</h4><p>Needs permission to be "good enough."</p><p class="from">From: practicing speaking before I feel 100% ready.</p></div>
+  <div><h4><span class="dot g-bismuth"></span>Bismuth</h4><p>Needs patience, so her fire lands well.</p><p class="from">From: Garnet, who lends her calm.</p></div>
+</div>
+<div class="caption">Connie, Garnet, Peridot, and Sapphire are already well armored for this war. Connie's armor is Pearl's training. Garnet's is the promise between Ruby and Sapphire. Peridot's is the team that taught her to grow. Sapphire's is Ruby, who reminds her to feel.</div>
+</div>
+
+<!-- CH 7 -->
+<div class="group">
+<section class="chapter">
+  <span class="num">CHAPTER 7</span>
+  <h2>Maps for War and Peace</h2>
+  <p>Where every soldier stands when the meeting turns into a battle, and where they rest when it doesn't.</p>
+</section>
+
+<div class="diagram">
+  <div class="scroll">
+  <svg viewBox="0 0 680 440" role="img" aria-label="War map: battle formation of the soldiers">
+    <polygon class="bolt" points="150,14 530,14 545,32 530,50 150,50 135,32"/>
+    <text class="boltt" x="340" y="38" text-anchor="middle">THE INTERRUPTION</text>
+    <rect class="band" x="10" y="78" width="660" height="82"/>
+    <rect class="band" x="10" y="168" width="660" height="82"/>
+    <rect class="band" x="10" y="258" width="660" height="82"/>
+    <rect class="band" x="10" y="348" width="660" height="82"/>
+    <text class="zone" x="22" y="100">FRONT LINE</text>
+    <text class="zone" x="22" y="190">COMMAND</text>
+    <text class="zone" x="22" y="280">WAR ROOM</text>
+    <text class="zone" x="22" y="370">AFTER-ACTION</text>
+    <circle class="node f-bismuth" cx="300" cy="112" r="20"/><text class="nm" x="328" y="110">Bismuth</text><text class="tr" x="328" y="126">Speaks up</text>
+    <circle class="node f-connie" cx="480" cy="112" r="20"/><text class="nm" x="508" y="110">Connie</text><text class="tr" x="508" y="126">Stands firm</text>
+    <circle class="node f-amethyst" cx="190" cy="202" r="20"/><text class="nm" x="218" y="200">Amethyst</text><text class="tr" x="218" y="216">Keeps it real</text>
+    <circle class="node f-garnet" cx="360" cy="202" r="20"/><text class="nm" x="388" y="200">Garnet</text><text class="tr" x="388" y="216">Leads, stays calm</text>
+    <circle class="node f-steven" cx="540" cy="202" r="20"/><text class="nm" x="568" y="200">Steven</text><text class="tr" x="568" y="216">Protects bonds</text>
+    <circle class="node f-pearl" cx="300" cy="292" r="20"/><text class="nm" x="328" y="290">Pearl</text><text class="tr" x="328" y="306">Talking points</text>
+    <circle class="node f-sapphire" cx="480" cy="292" r="20"/><text class="nm" x="508" y="290">Sapphire</text><text class="tr" x="508" y="306">Reads the room</text>
+    <circle class="node f-peridot" cx="360" cy="382" r="20"/><text class="nm" x="388" y="380">Peridot</text><text class="tr" x="388" y="396">Fixes the pattern</text>
+  </svg>
+  </div>
+  <div class="legend"><span><b>WAR MAP.</b> Garnet takes command. Bismuth and Connie hold the front line. Pearl and Sapphire run strategy from the War Room. Peridot moves in after the battle.</span></div>
+</div>
+</div>
+
+<div class="group">
+<div class="row">
+  <figure class="panel" style="margin:0">
+    <span class="tag">STEVEN RESTS EASY</span>
+    <img src="img/steven-ukulele.jpg" alt="Steven lying in the grass playing his ukulele">
+    <figcaption class="narr">When I'm heard, my heart is at peace.</figcaption>
+  </figure>
+  <figure class="panel" style="margin:0">
+    <span class="tag">AMETHYST LIGHTENS THE MOOD</span>
+    <img src="img/amethyst-beach.jpg" alt="Amethyst being silly on the beach">
+    <figcaption class="narr">After the battle, Amethyst reminds me not to take myself too seriously.</figcaption>
+  </figure>
+</div>
+
+<div class="diagram">
+  <div class="scroll">
+  <svg viewBox="0 0 680 360" role="img" aria-label="Peace map: Steven and Amethyst lead while the others rest">
+    <ellipse class="ring" cx="340" cy="180" rx="290" ry="150"/>
+    <text class="zone" x="340" y="122" text-anchor="middle">LEADING</text>
+    <circle class="node f-steven" cx="285" cy="170" r="24"/><text class="nm" x="285" y="214" text-anchor="middle">Steven</text><text class="tr" x="285" y="230" text-anchor="middle">Connection</text>
+    <circle class="node f-amethyst" cx="395" cy="170" r="24"/><text class="nm" x="395" y="214" text-anchor="middle">Amethyst</text><text class="tr" x="395" y="230" text-anchor="middle">Humor</text>
+    <circle class="node f-pearl" cx="140" cy="70" r="18"/><text class="nm" x="140" y="106" text-anchor="middle">Pearl</text>
+    <circle class="node f-peridot" cx="62" cy="180" r="18"/><text class="nm" x="62" y="216" text-anchor="middle">Peridot</text>
+    <circle class="node f-connie" cx="140" cy="290" r="18"/><text class="nm" x="140" y="326" text-anchor="middle">Connie</text>
+    <circle class="node f-garnet" cx="540" cy="70" r="18"/><text class="nm" x="540" y="106" text-anchor="middle">Garnet</text>
+    <circle class="node f-sapphire" cx="618" cy="180" r="18"/><text class="nm" x="618" y="216" text-anchor="middle">Sapphire</text>
+    <circle class="node f-bismuth" cx="540" cy="290" r="18"/><text class="nm" x="540" y="326" text-anchor="middle">Bismuth</text>
+    <text class="zone" x="340" y="300" text-anchor="middle">EVERYONE ELSE AT REST</text>
+  </svg>
+  </div>
+  <div class="legend"><span><b>PEACE MAP.</b> My ideas are heard, so the army stands down. Steven and Amethyst lead with connection and humor, and the rest recharge for the next meeting.</span></div>
+</div>
+</div>
+
+<!-- VICTORY -->
+<div class="group">
+<section class="chapter">
+  <span class="num">EPILOGUE</span>
+  <h2>Victory</h2>
+</section>
+<div class="caption">I finished my thought. My idea was heard. And I didn't lose myself, or my relationships, to get there. Every soldier had a part: Pearl prepared me, Sapphire saw it coming, Garnet kept me calm, Bismuth and Connie held the line, Amethyst kept it real, Steven protected the bond, and Peridot made sure it doesn't happen again.</div>
+<figure class="panel victory-fig" style="margin:0 auto;max-width:520px;align-self:center;width:100%">
+  <span class="tag">WE WON THE WAR</span>
+  <img src="img/opal-victory.jpg" alt="Opal standing tall with hands on hips while Steven cheers">
+  <figcaption class="narr">Prepared, still myself, and heard.</figcaption>
+</figure>
+</div>
+<p class="end">THE END</p>
+
+<section class="credits">
+  <h2>Image Credits</h2>
+  <p>All character images: <b>Steven Universe © Cartoon Network / Rebecca Sugar.</b> Used for an educational class assignment only.</p>
+  <ul>
+    <li><b>Episode screenshots:</b> Steven (ukulele), Amethyst (grin, beach, whip), Pearl (blushing, dance, anxious), Connie (sword, focused), Stevonnie (panic), Garnet (calm, hold on), Bismuth (scowl), Peridot (couch, tablet, early), Sapphire (light beam), Pearl and Holo-Pearl in the training arena.</li>
+    <li><b>"The Answer":</b> Garnet's first fusion.</li>
+    <li><b>"Reunited":</b> Sapphire at the wedding.</li>
+    <li><b>Episode screenshots:</b> Opal (Pearl + Amethyst fusion), and Opal with Steven on the Victory page.</li>
+    <li><b>"Bismuth":</b> Bismuth in her forge.</li>
+    <li><b>Official character art:</b> Amethyst full-body pose (via Steven Universe Wiki, Fandom).</li>
+    <li><b>Character art, original site not found:</b> Steven with shield (widely reposted on free PNG sites).</li>
+    <li><b>Fan-edited screenshot:</b> Stevonnie with the gem. Edited image via Pinterest, editor unknown.</li>
+  </ul>
+  <p>Story, soldiers, and strategy written by Myia for the i.c.stars Buffalo Soldiers assignment.</p>
+</section>
+
+</main>
+</body>
+</html>
