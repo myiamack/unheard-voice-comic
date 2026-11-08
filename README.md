@@ -21,15 +21,7 @@ Plain HTML and CSS, no frameworks. Diagrams are hand-built SVG. Fonts (Bowlby On
 
 ## View it locally
 
-Open `index.html` in any web browser.
-
-## Publish with GitHub Pages
-
-1. Create a new public repository on GitHub (for example, `unheard-voice-comic`).
-2. Upload everything in this folder: `index.html`, `README.md`, and the `img` and `fonts` folders.
-3. In the repository, go to **Settings > Pages**.
-4. Under **Build and deployment**, set Source to **Deploy from a branch**, pick the `main` branch and the `/ (root)` folder, and save.
-5. After a minute or two, the site is live at `https://YOUR-USERNAME.github.io/unheard-voice-comic/`.
+**[Read the comic here](https://myiamack.github.io/unheard-voice-comic/)**
 
 ## Image credits
 
